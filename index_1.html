@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdVision - Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-eye"></i>
+                <span class="logo-text">AdVision</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#projects" class="nav-item" data-section="projects">
+                <i class="fas fa-folder-open"></i>
+                <span>Projects</span>
+            </a>
+            <a href="#reports" class="nav-item" data-section="reports">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
+            <a href="#settings" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40x40?text=AJ" alt="User Avatar" class="user-avatar">
+                <div class="user-info">
+                    <div class="user-name">Alex Johnson</div>
+                    <div class="user-role">Campaign Manager</div>
+                </div>
+            </div>
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="header">
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 id="pageTitle">Dashboard</h1>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <!-- Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon revenue">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Total Revenue</h3>
+                        <div class="metric-value">$147,250</div>
+                        <div class="metric-change positive">+8.2% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon campaigns">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Active Campaigns</h3>
+                        <div class="metric-value">12</div>
+                        <div class="metric-change positive">+3 new this month</div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon clients">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Total Clients</h3>
+                        <div class="metric-value">34</div>
+                        <div class="metric-change positive">+15.2% growth</div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon growth">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Monthly Growth</h3>
+                        <div class="metric-value">+15.2%</div>
+                        <div class="metric-change positive">Above target</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Revenue Trends</h3>
+                        <p>Monthly revenue over the past 6 months</p>
+                    </div>
+                    <div class="chart-wrapper" style="position: relative; height: 300px;">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Campaign Types</h3>
+                        <p>Distribution of campaign types</p>
+                    </div>
+                    <div class="chart-wrapper" style="position: relative; height: 300px;">
+                        <canvas id="campaignChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-bottom">
+                <div class="chart-container full-width">
+                    <div class="chart-header">
+                        <h3>Client Performance</h3>
+                        <p>Performance scores across top clients</p>
+                    </div>
+                    <div class="chart-wrapper" style="position: relative; height: 300px;">
+                        <canvas id="clientChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="activity-feed">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Campaign launched</div>
+                                <div class="activity-project">Summer Fashion Campaign</div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon info">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Budget updated</div>
+                                <div class="activity-project">Tech Product Launch</div>
+                                <div class="activity-time">5 hours ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon completed">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Report submitted</div>
+                                <div class="activity-project">Holiday Sale Promotion</div>
+                                <div class="activity-time">1 day ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="content-section">
+            <div class="section-header">
+                <h2>Projects Management</h2>
+                <button class="btn btn--primary" id="addProjectBtn">
+                    <i class="fas fa-plus"></i>
+                    Add New Project
+                </button>
+            </div>
+            
+            <div class="projects-filters">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search projects..." id="projectSearch">
+                </div>
+                <select class="form-control" id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="completed">Completed</option>
+                    <option value="planning">Planning</option>
+                    <option value="paused">Paused</option>
+                </select>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="content-section">
+            <div class="section-header">
+                <h2>Reports & Analytics</h2>
+                <button class="btn btn--primary" id="generateReportBtn">
+                    <i class="fas fa-chart-bar"></i>
+                    Generate Report
+                </button>
+            </div>
+
+            <div class="reports-grid">
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="report-content">
+                        <h3>Total Reach</h3>
+                        <div class="report-value">2.5M</div>
+                        <div class="report-change positive">+12.5%</div>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="report-content">
+                        <h3>Engagement Rate</h3>
+                        <div class="report-value">8.5%</div>
+                        <div class="report-change positive">+0.8%</div>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="report-content">
+                        <h3>Conversion Rate</h3>
+                        <div class="report-value">3.2%</div>
+                        <div class="report-change positive">+0.5%</div>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <div class="report-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="report-content">
+                        <h3>ROI</h3>
+                        <div class="report-value">285%</div>
+                        <div class="report-change positive">+18%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-details">
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Campaign Performance Summary</h3>
+                        <div class="performance-metrics">
+                            <div class="metric-row">
+                                <span>Total Impressions:</span>
+                                <strong>5,200,000</strong>
+                            </div>
+                            <div class="metric-row">
+                                <span>Total Clicks:</span>
+                                <strong>442,000</strong>
+                            </div>
+                            <div class="metric-row">
+                                <span>Average CPC:</span>
+                                <strong>$0.68</strong>
+                            </div>
+                            <div class="metric-row">
+                                <span>Click-through Rate:</span>
+                                <strong>8.5%</strong>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary mt-8">
+                            <i class="fas fa-download"></i>
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h2>Settings & Preferences</h2>
+            </div>
+
+            <div class="settings-grid">
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Profile Settings</h3>
+                        <form class="settings-form" id="profileForm">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" value="Alex Johnson">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" value="alex@advision.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Company</label>
+                                <input type="text" class="form-control" id="company" value="AdVision">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Role</label>
+                                <input type="text" class="form-control" id="role" value="Campaign Manager">
+                            </div>
+                            <button type="submit" class="btn btn--primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Theme Settings</h3>
+                        <div class="theme-controls">
+                            <div class="theme-option">
+                                <label>
+                                    <input type="radio" name="theme" value="light" checked>
+                                    <span class="theme-preview light"></span>
+                                    Light Theme
+                                </label>
+                            </div>
+                            <div class="theme-option">
+                                <label>
+                                    <input type="radio" name="theme" value="dark">
+                                    <span class="theme-preview dark"></span>
+                                    Dark Theme
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="accent-colors">
+                            <label class="form-label">Accent Color</label>
+                            <div class="color-picker">
+                                <button type="button" class="color-option active" data-color="teal"></button>
+                                <button type="button" class="color-option" data-color="blue"></button>
+                                <button type="button" class="color-option" data-color="purple"></button>
+                                <button type="button" class="color-option" data-color="green"></button>
+                                <button type="button" class="color-option" data-color="orange"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Notification Preferences</h3>
+                        <div class="notification-settings">
+                            <div class="notification-item">
+                                <label class="toggle-label">
+                                    <span>Email notifications</span>
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-item">
+                                <label class="toggle-label">
+                                    <span>Campaign alerts</span>
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="notification-item">
+                                <label class="toggle-label">
+                                    <span>Weekly reports</span>
+                                    <input type="checkbox">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AdVision</h4>
+                    <p>Visionary Advertising Solutions</p>
+                    <p>123 Marketing Street, Business District, City 12345</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@advision.com</p>
+                    <p><i class="fas fa-globe"></i> www.advision.com</p>
+                </div>
+                <div class="footer-section">
+                    <p>&copy; 2025 AdVision. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Project Modal -->
+    <div class="modal hidden" id="projectModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Project</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="projectForm">
+                    <div class="form-group">
+                        <label class="form-label">Project Name *</label>
+                        <input type="text" class="form-control" id="projectName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Client Name *</label>
+                        <input type="text" class="form-control" id="clientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Budget *</label>
+                        <input type="text" class="form-control" id="projectBudget" placeholder="e.g. $25,000" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Duration *</label>
+                        <input type="text" class="form-control" id="projectDuration" placeholder="e.g. 3 months" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select class="form-control" id="projectStatus" required>
+                            <option value="planning">Planning</option>
+                            <option value="active">Active</option>
+                            <option value="completed">Completed</option>
+                            <option value="paused">Paused</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="projectDescription" rows="3" placeholder="Brief description of the project..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" id="cancelModal">Cancel</button>
+                <button class="btn btn--primary" id="saveProject">Save Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay hidden" id="overlay"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
